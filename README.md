@@ -4,12 +4,12 @@ This is my personal shell setup. You can use this to setup your shell in a simil
 # Installing the Core Components
 You can install the core by simply running `setup.sh`
 1. Git - https://git-scm.com/install/mac
-2. OhMyZsh - https://ohmyz.sh/
-3. PowerLevel10k - https://github.com/romkatv/powerlevel10k
-4. fzf - https://junegunn.github.io/fzf/
-5. AltTab - https://alt-tab-macos.netlify.app/
-6. Go - https://go.dev/
-7. Qail - https://github.com/ubaniak/qail
-8. Bat - https://github.com/sharkdp/bat
-9. Maccy - https://maccy.app/
-
+1. Nerd Fonts - https://github.com/ryanoasis/nerd-fonts
+1. OhMyZsh - https://ohmyz.sh/
+1. PowerLevel10k - https://github.com/romkatv/powerlevel10k
+1. fzf - https://junegunn.github.io/fzf/
+1. AltTab - https://alt-tab-macos.netlify.app/
+1. Go - https://go.dev/
+1. Qail - https://github.com/ubaniak/qail
+1. Bat - https://github.com/sharkdp/bat
+1. Maccy - https://maccy.app/
