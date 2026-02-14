@@ -5,16 +5,47 @@ ZSHRC_FILE="$HOME/.zshrc"
 ZSH_CUSTOM_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 NEW_THEME="powerlevel10k/powerlevel10k"
 
-# --- Ensure Homebrew exists (macOS) ---
+# -------------------------
+# Install Homebrew if missing
+# -------------------------
 if ! command -v brew >/dev/null 2>&1; then
-  echo "Homebrew is not installed. Install Homebrew first: https://brew.sh/"
-  exit 1
+  echo "Homebrew not found. Installing..."
+
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # Add Homebrew to PATH for Apple Silicon Macs
+  if [ -d "/opt/homebrew/bin" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  fi
+
+  # Add Homebrew to PATH for Intel Macs
+  if [ -d "/usr/local/bin" ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+
+  echo "Homebrew installed successfully."
+else
+  echo "Homebrew already installed."
 fi
 
 # --- Install Git ---
 if ! command -v git >/dev/null 2>&1; then
   echo "Git is not installed. Installing..."
   brew install git
+fi
+
+# -------------------------
+# Set Vim as Git default editor
+# -------------------------
+if command -v git >/dev/null 2>&1; then
+  CURRENT_EDITOR=$(git config --global core.editor || echo "")
+
+  if [ "$CURRENT_EDITOR" != "vim" ]; then
+    echo "Setting vim as Git default editor..."
+    git config --global core.editor "vim"
+  else
+    echo "Git editor already set to vim."
+  fi
 fi
 
 # -------------------------
