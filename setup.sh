@@ -35,8 +35,65 @@ if ! command -v git >/dev/null 2>&1; then
 fi
 
 # -------------------------
-# Set Vim as Git default editor
+# Install modern Vim + configure colors
 # -------------------------
+
+echo "Setting up Vim..."
+
+# Install Homebrew Vim (better than macOS system vim)
+if ! brew list vim >/dev/null 2>&1; then
+  brew install vim
+else
+  echo "Homebrew vim already installed."
+fi
+
+# Ensure Homebrew Vim is first in PATH
+if [[ "$(uname -m)" == "arm64" ]]; then
+  VIM_PREFIX="/opt/homebrew/bin"
+else
+  VIM_PREFIX="/usr/local/bin"
+fi
+
+if ! grep -q "$VIM_PREFIX" "$ZSHRC_FILE"; then
+  echo "" >> "$ZSHRC_FILE"
+  echo "# Ensure Homebrew Vim is first in PATH" >> "$ZSHRC_FILE"
+  echo "export PATH=\"$VIM_PREFIX:\$PATH\"" >> "$ZSHRC_FILE"
+fi
+
+# Create a modern ~/.vimrc if it doesn't exist
+VIMRC_FILE="$HOME/.vimrc"
+
+if [ ! -f "$VIMRC_FILE" ]; then
+  cat <<EOF > "$VIMRC_FILE"
+syntax on
+set number
+set relativenumber
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set smartindent
+set termguicolors
+set background=dark
+EOF
+  echo "Created ~/.vimrc with syntax highlighting."
+else
+  # Ensure syntax highlighting exists
+  if ! grep -q "syntax on" "$VIMRC_FILE"; then
+    echo "syntax on" >> "$VIMRC_FILE"
+  fi
+  if ! grep -q "set termguicolors" "$VIMRC_FILE"; then
+    echo "set termguicolors" >> "$VIMRC_FILE"
+  fi
+fi
+
+# Ensure 256-color terminal support
+if ! grep -q 'export TERM=' "$ZSHRC_FILE"; then
+  echo "" >> "$ZSHRC_FILE"
+  echo "# Enable 256 color support" >> "$ZSHRC_FILE"
+  echo "export TERM=xterm-256color" >> "$ZSHRC_FILE"
+fi
+
+# Set Vim as Git default editor
 if command -v git >/dev/null 2>&1; then
   CURRENT_EDITOR=$(git config --global core.editor || echo "")
 
@@ -47,6 +104,8 @@ if command -v git >/dev/null 2>&1; then
     echo "Git editor already set to vim."
   fi
 fi
+
+echo "Vim configured successfully."
 
 # -------------------------
 # Install Nerd Font (MesloLGS NF) for Powerlevel10k
