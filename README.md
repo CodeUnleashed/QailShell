@@ -3,6 +3,7 @@ This is my personal shell setup. You can use this to setup your shell in a simil
 
 # Installing the Core Components
 You can install the core by simply running `setup.sh`
+1. Homebrew - https://brew.sh/
 1. Git - https://git-scm.com/install/mac
 1. Nerd Fonts - https://github.com/ryanoasis/nerd-fonts
 1. OhMyZsh - https://ohmyz.sh/
