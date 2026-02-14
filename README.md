@@ -14,3 +14,4 @@ You can install the core by simply running `setup.sh`
 1. Qail - https://github.com/ubaniak/qail
 1. Bat - https://github.com/sharkdp/bat
 1. Maccy - https://maccy.app/
+1. Visual Studio Code & Code CLI - https://code.visualstudio.com/

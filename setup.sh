@@ -266,6 +266,39 @@ else
 fi
 
 # -------------------------
+# Install Visual Studio Code
+# -------------------------
+
+if [ ! -d "/Applications/Visual Studio Code.app" ]; then
+  echo "Installing Visual Studio Code..."
+  brew install --cask visual-studio-code
+else
+  echo "Visual Studio Code already installed."
+fi
+
+# -------------------------
+# Enable 'code' CLI command
+# -------------------------
+
+VSCODE_BIN="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
+
+if [ -f "$VSCODE_BIN" ]; then
+  # Apple Silicon
+  if [ -d "/opt/homebrew/bin" ]; then
+    sudo ln -sf "$VSCODE_BIN" /opt/homebrew/bin/code
+  fi
+
+  # Intel
+  if [ -d "/usr/local/bin" ]; then
+    sudo ln -sf "$VSCODE_BIN" /usr/local/bin/code
+  fi
+
+  echo "'code' CLI installed successfully."
+else
+  echo "VS Code binary not found."
+fi
+
+# -------------------------
 # Zsh plugins:
 # 1) zsh-autocomplete
 # 2) zsh-autosuggestions
